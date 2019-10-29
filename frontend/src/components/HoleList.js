@@ -27,7 +27,6 @@ export default class HoleList extends Component {
   render() {
     return (
       <div>
-        {console.log(this.state)}
         {this.state.list.map(item => (
           <div key={item.id}>
             <h1>{item.name}</h1>
