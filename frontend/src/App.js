@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import HoleList from "./components/HoleList";
+
 import HoleMap from "./components/HoleMap";
 import styled from "styled-components";
 
@@ -12,6 +13,7 @@ function App() {
     <div>
       <Title>Guerilla Golf</Title>
       <HoleMap />
+
     </div>
   );
 }
