@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
+import { getData } from "../actions/index";
 
 import ReactMapGL, {
   Marker,
-  Popup,
-  NavigationControl,
-  FullscreenControl
+  Popup
+  // NavigationControl,
+  // FullscreenControl
 } from "react-map-gl";
 
 // import ControlPanel from "./control-panel";
@@ -14,16 +16,16 @@ import CityInfo from "./city-info";
 
 const TOKEN = process.env.REACT_APP_MAPBOX_KEY;
 
-export default class Map extends Component {
+class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
       viewport: {
         width: 1000,
         height: 400,
-        latitude: 37.7577,
-        longitude: -100.0,
-        zoom: 8
+        latitude: 42.379659,
+        longitude: -71.096053,
+        zoom: 15
       },
       popupInfo: null,
       holes: []
@@ -31,7 +33,7 @@ export default class Map extends Component {
   }
 
   componentDidMount() {
-    this.getHoles();
+    this.props.getData();
   }
 
   getHoles = () => {
@@ -39,7 +41,6 @@ export default class Map extends Component {
       .get("http://127.0.0.1:8000/api/hole/")
       .then(res => {
         this.setState({ holes: res.data });
-        console.log(this.state);
       })
       .catch(err => {
         console.log(err);
@@ -52,7 +53,11 @@ export default class Map extends Component {
 
   _renderCityMarker = (city, index) => {
     return (
-      <Marker longitude={Number(city.lng)} latitude={Number(city.lat)}>
+      <Marker
+        key={city.id}
+        longitude={Number(city.lng)}
+        latitude={Number(city.lat)}
+      >
         <CityPin size={20} onClick={() => this.setState({ popupInfo: city })} />
       </Marker>
     );
@@ -87,10 +92,20 @@ export default class Map extends Component {
           onViewportChange={this._updateViewport}
           mapboxApiAccessToken={TOKEN}
         >
-          {this.state.holes.map(this._renderCityMarker)}
+          {this.props.holes.map(this._renderCityMarker)}
           {this._renderPopup()}
         </ReactMapGL>
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    holes: state.remoteArticles.slice(0, 10)
+  };
+}
+export default connect(
+  mapStateToProps,
+  { getData }
+)(Map);
