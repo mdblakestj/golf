@@ -10,7 +10,7 @@ class HoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hole
         fields = ('id','creator', 'description','name', 'created_at', 'updated_at',
-        'par', 'low_score', 'long', 'lat')
+        'par', 'low_score', 'lng', 'lat')
 
 
 
