@@ -18,12 +18,18 @@ const Hats = styled.button`
   border: 2px solid red;
   border-radius: 3px;
 `;
-function App() {
+function App(props) {
   return (
     <div>
       <Title>Guerilla Golf</Title>
       <HoleMap />
-      <Hats>Play Hole</Hats>
+      <Hats
+        onClick={() => {
+          props.history.push(`/playerform`);
+        }}
+      >
+        Play Hole
+      </Hats>
       <Hats>Play Course</Hats>
     </div>
   );
