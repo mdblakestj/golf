@@ -26,7 +26,7 @@ class CourseSerializer(serializers.ModelSerializer):
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ('id', 'creator', "course", "player_2_name", "player_3_name",
+        fields = ('id', 'creator', "course", "player_1_name", "player_2_name", "player_3_name",
          "player_4_name", "player_1_score", "player_2_score", "player_3_score",
          "player_4_score", "created_at", "updated_at", "present_hole")
 

@@ -54,9 +54,10 @@ class CourseHole(models.Model):
 class Game(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    player_2_name = models.CharField(max_length=100)
-    player_3_name = models.CharField(max_length=100)
-    player_4_name = models.CharField(max_length=100)
+    player_1_name = models.CharField(max_length=100)
+    player_2_name = models.CharField(max_length=100, default=None, blank=True, null=True)
+    player_3_name = models.CharField(max_length=100, default=None, blank=True, null=True)
+    player_4_name = models.CharField(max_length=100, default=None, blank=True, null=True)
     player_1_score = models.IntegerField(default=0)
     player_2_score = models.IntegerField(default=0)
     player_3_score = models.IntegerField(default=0)
@@ -66,8 +67,7 @@ class Game(models.Model):
     updated_at = models.DateField(auto_now = True)
 
 
-    def __str__(self):
-        return self.created_at
+
 
     # def get_scores(self):
     #     return [(x.player.name, x.hole.number, x.score) for x in self.scores]
@@ -96,8 +96,3 @@ class HoleInst(models.Model):
     player_4_score = models.CharField(max_length=100)
     created_at = models.DateField(auto_now_add = True)
     updated_at = models.DateField(auto_now = True)
-
-
-
-    def __str__(self):
-        return self.created_at
